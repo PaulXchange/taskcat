@@ -8,12 +8,12 @@ phases:
       - echo "Nothing to build here in this task"    
   post_build:
     commands:
-      - aws cloudformation package --template-file template.yml 
+      - aws cloudformation package --template-file ./templates/appsync.yaml 
                                         --s3-bucket $DeploymentBucketName
                                         --output-template-file output.yml
                                         --region $AWS_DEFAULT_REGION
 artifacts:
   type: zip
   files:
-    - template.yml
+    - ./templates/appsync.yaml
     - output.yml

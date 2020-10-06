@@ -15,3 +15,4 @@ tests:
     template_file: appsync
     regions:
       - ap-southeast-1
+      
