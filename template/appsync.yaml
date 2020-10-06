@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: AppSync API Cloudformation Stacks
+Parameters:
+    graphQlApiName:
+      NoEcho: True
+      Description: GraphQL API Name
+      Type: String
+      Default: TestApp
+    userPoolId:
+      NoEcho: True
+      Description: The ID for the userpool to connect
+      Type: String
+      Default: ap-southeast-1_8lti1UBDx
+    userPoolAwsRegion:
+      NoEcho: True
+      Description: The AWS user pool Region
+      Type: String
+      Default: ap-southeast-1
+Resources:
+  OmniGraphQLApi:
+    Type: AWS::AppSync::GraphQLApi
+    Properties: 
+      AdditionalAuthenticationProviders: 
+        - AuthenticationType: AMAZON_COGNITO_USER_POOLS
+          UserPoolConfig:
+            AwsRegion: !Ref userPoolAwsRegion
+            UserPoolId: !Ref userPoolId
+      Name: !Ref graphQlApiName
+      AuthenticationType: AWS_IAM
+      LogConfig: 
+        CloudWatchLogsRoleArn: arn:aws:logs:ap-southeast-1:499418467184:log-group:OMNI:*
+        ExcludeVerboseContent: True
+        FieldLogLevel: ALL 
+      Tags: 
+        - 
+          Key: Name
+          Value: !Sub '${AWS::StackName}-APIGraphQl'
+          
+  DataSource:
+    Type: AWS::AppSync::DataSource
+    Properties: 
+      ApiId: 
+        !GetAtt OmniGraphQLApi.ApiId
+      Description: AppSync Data Source
+      LambdaConfig: 
+        LambdaFunctionArn: arn:aws:lambda:ap-southeast-1:499418467184:function:TestAppLambda
+      Name: TestAppLambda
+      ServiceRoleArn: arn:aws:iam::499418467184:role/QA_Omni_AppySync
+      Type: AWS_LAMBDA
+Outputs:
+  OmniGraphQLApi:
+    Value: !Ref OmniGraphQLApi
+    Export:
+      Name: !Sub '${AWS::StackName}-GraphApiTest2'

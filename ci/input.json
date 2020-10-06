@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey" : "graphQlApiName", 
+        "ParameterValue" : "TestApp"
+    },
+    {
+        "ParameterKey" : "userPoolId", 
+        "ParameterValue" : "ap-southeast-1_8lti1UBDx"
+    },
+    {
+        "ParameterKey" : "userPoolAwsRegion", 
+        "ParameterValue" : "ap-southeast-1"
+    }
+]

@@ -4,7 +4,7 @@ Instructions to running TaskCat
 1) 
 
 Done
-1) Done this already
+1) ## Done this already
 
 docker.io/taskcat/taskcat:latest
 
@@ -18,4 +18,4 @@ docker.io/taskcat/taskcat:latest
 	[i] To run taskcat the program type taskcat
 	[i] To run alchemist the program type alchemist
 
-2) # taskcat
+2) ## taskcat
